@@ -19,7 +19,7 @@ class OrdersPageLocators:
         )
 
 
-    def get_orders__ready_today_counter_locator():
+    def get_orders_ready_today_counter_locator():
         return (
             By.XPATH,
             '//p[text()="Выполнено за сегодня:"]/following-sibling::p[contains(@class, "OrderFeed_number")]'

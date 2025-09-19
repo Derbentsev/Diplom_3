@@ -6,7 +6,7 @@ class HomePageLocators:
     IDENTIFIER_ORDER_LOCATOR = (By.XPATH, '//h2[contains(@class, "Modal_modal__title")]')
     PLACE_AN_ORDER_BUTTON_LOCATOR = (By.XPATH, '//button[text()="Оформить заказ"]')
     CLOSE_ORDER_POPUP_WINDOW_LOCATOR = (By.XPATH, '//button[contains(@class, "modal__close")]')
-    OVERLAY_LOCATOR = (By.XPATH,  '//div[contains(@class, "Modal_modal_overlay")]')
+    OVERLAY_LOCATOR = (By.XPATH, '//div[contains(@class, "Modal_modal_overlay")]')
     
 
     BURGER_CONSTRUCTOR_BASKET_LOCATOR = (

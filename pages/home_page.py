@@ -38,9 +38,9 @@ class HomePage(BasePage):
 
 
     @allure.step('Считываем идентификатор заказа')
-    def get_order_indentifier(self):
+    def get_order_indentifier_element(self):
         element = self.find_element(HomePageLocators.IDENTIFIER_ORDER_LOCATOR)
-        return element.text
+        return element
     
 
     @allure.step('Перетаскиваем ингредиент в поле заказа')
@@ -65,8 +65,18 @@ class HomePage(BasePage):
     @allure.step('Закрываем окно оформленного заказа')
     def close_popup_order_window(self):        
         self.click_on_element(HomePageLocators.CLOSE_ORDER_POPUP_WINDOW_LOCATOR)
+        self.wait_element_invisibility(HomePageLocators.CLOSE_ORDER_POPUP_WINDOW_LOCATOR)
 
 
     @allure.step('Ожидаем исчезновения overlay на домашней странице')
     def wait_overlay_invisibility(self):
         self.wait_element_invisibility(HomePageLocators.OVERLAY_LOCATOR)
+
+
+    @allure.step('Ожидаем появления номера заказа во всплывающем окне')
+    def wait_change_order_number_in_popup(self, order_number):
+        self.wait_text_to_change(
+            HomePageLocators.IDENTIFIER_ORDER_LOCATOR,
+            order_number
+        )
+    

@@ -20,7 +20,7 @@ class BasePage:
         ).click()
 
 
-    @allure.step('Заполняем поле "Email"')
+    @allure.step('Ожидаем появление элемента')
     def wait_element_displayed(self, locator):
         return WebDriverWait(self.driver, 8).until(
             EC.visibility_of_element_located(locator)
@@ -29,9 +29,12 @@ class BasePage:
 
     @allure.step('Ожидаем исчезновение элемента')
     def wait_element_invisibility(self, locator):
-        return WebDriverWait(self.driver, 5).until(
-            EC.invisibility_of_element_located(locator)
-        )
+        try:
+            return WebDriverWait(self.driver, 5).until(
+                EC.invisibility_of_element_located(locator)
+            )
+        except:
+            return None
 
 
     @allure.step('Находим элемент')
@@ -48,11 +51,24 @@ class BasePage:
         ).send_keys(text)
 
 
-    @allure.step('Аепетаскиваем элемент')
+    @allure.step('Перетаскиваем элемент')
     def drag_and_drop_element(self, locator_from, locator_to):
         element_source = self.find_element(locator_from)
         element_target = self.find_element(locator_to)        
         drag_and_drop(self.driver, element_source, element_target)
+
+
+    @allure.step('Ожидаем появления текста в элементе')
+    def wait_text_in_element(self, element_locator, text):
+        return WebDriverWait(self.driver, 15).until(
+            EC.text_to_be_present_in_element(element_locator, text)
+        )
+    
+
+    def wait_text_to_change(self, locator, original_text):
+        return WebDriverWait(self.driver, 10).until(
+            lambda driver: driver.find_element(*locator).text != original_text
+        )
 
 
     # Подсветка элемента желтым

@@ -38,16 +38,16 @@ class TestOrderPage:
         personal_account_page.user_login(user['email'], user['password'])
 
         home_page.create_order()
-        order_number = home_page.get_order_indentifier()
-        home_page.close_popup_order_window()
+        order_number_start = home_page.get_order_indentifier_element().text
         home_page.wait_overlay_invisibility()
+        home_page.wait_change_order_number_in_popup(order_number_start)
+        order_number = home_page.get_order_indentifier_element().text
+        home_page.close_popup_order_window()
 
         orders_page = OrdersPage(web_driver)
         orders_page.click_orders_button()
         orders_page.wait_orders_page_displayed()
-        order_number_current = orders_page.get_order_in_work_counter(order_number)
-
-        assert str(int(order_number)) == str(int(order_number_current))
+        assert orders_page.wait_text_in_element_orders_count_in_work(order_number)
 
 
     @allure.title('При создании нового заказа счётчик "Выполнено за всё время" увеличивается')
@@ -69,8 +69,10 @@ class TestOrderPage:
 
         home_page.click_on_constructor_button()
         home_page.create_order()
-        home_page.close_popup_order_window()
+        order_number_start = home_page.get_order_indentifier_element().text
         home_page.wait_overlay_invisibility()
+        home_page.wait_change_order_number_in_popup(order_number_start)
+        home_page.close_popup_order_window()
     
         orders_page.click_orders_button()
         orders_page.wait_orders_page_displayed()
@@ -98,8 +100,10 @@ class TestOrderPage:
     
         home_page.click_on_constructor_button()
         home_page.create_order()
-        home_page.close_popup_order_window()
+        order_number_start = home_page.get_order_indentifier_element().text
         home_page.wait_overlay_invisibility()
+        home_page.wait_change_order_number_in_popup(order_number_start)
+        home_page.close_popup_order_window()
 
         orders_page.click_orders_button()
         orders_page.wait_orders_page_displayed()
